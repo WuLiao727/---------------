@@ -4,15 +4,18 @@
     // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        
         {
             "name": "(gdb) 启动",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/main.exe",
+            // 说明：本机 MinGW 版 gdb 无法处理含中文的路径，会报
+            //   "Unexpected GDB output from command -environment-cd ...: Invalid argument"。
+            // C:\Users\wulia\Desktop\CppPractice 是指向本项目目录的目录联接（Junction），
+            // 与这里读写的是同一批文件。program 与 cwd 必须写成这个 ASCII 路径，否则 F5 启动失败。
+            "program": "C:/Users/wulia/Desktop/CppPractice/main.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "C:/Users/wulia/Desktop/CppPractice",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

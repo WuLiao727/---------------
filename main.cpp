@@ -9,6 +9,7 @@
 #include <random>
 #include <iomanip>
 #include <fstream>
+#include <sstream>
 #include <limits>
 #include <cmath>
 #include <cstdlib>
@@ -23,6 +24,14 @@ T randInRange(T lo, T hi) {
     static mt19937 gen(rd());
     uniform_int_distribution<T> dist(lo, hi);
     return dist(gen);
+}
+
+// 打印边长用：去掉多余的小数 0，7 输出 "7"，7.5 输出 "7.5"
+// cout 里已经设了 fixed + setprecision(2)，这里必须单独指定格式，否则会显示成 7.00
+string numToStr(double v) {
+    ostringstream oss;
+    oss << defaultfloat << setprecision(6) << v;
+    return oss.str();
 }
 
 // 一道题：图形指针 + 标准答案 + 用户作答
@@ -137,13 +146,27 @@ public:
         return ok(q.ansArea_, ua) && ok(q.ansPeri_, up);
     }
 
-    // 打印图形信息，用 dynamic_cast 判断具体类型
+    // 打印图形信息：用 dynamic_cast 判断具体类型，并把题目数据（具体边长）一并给出
     void printPrompt(Shape* s) {
-        if      (dynamic_cast<Triangle*>(s))       cout << "三角形，三边长 a/b/c";
-        else if (dynamic_cast<Rectangle*>(s))      cout << "长方形，长 l、宽 w";
-        else if (dynamic_cast<Square*>(s))         cout << "正方形，边长 a";
-        else if (dynamic_cast<Parallelogram*>(s))  cout << "平行四边形，底 b、斜边 s、高 h";
-        else if (dynamic_cast<Trapezoid*>(s))      cout << "梯形，上底 a、下底 b、两腰 c/d、高 h";
+        if (auto* t = dynamic_cast<Triangle*>(s))
+            cout << "三角形，三边长 a=" << numToStr(t->getA())
+                 << "、b=" << numToStr(t->getB())
+                 << "、c=" << numToStr(t->getC());
+        else if (auto* r = dynamic_cast<Rectangle*>(s))
+            cout << "长方形，长 l=" << numToStr(r->getL())
+                 << "、宽 w=" << numToStr(r->getW());
+        else if (auto* q = dynamic_cast<Square*>(s))
+            cout << "正方形，边长 a=" << numToStr(q->getA());
+        else if (auto* p = dynamic_cast<Parallelogram*>(s))
+            cout << "平行四边形，底 b=" << numToStr(p->getB())
+                 << "、斜边 s=" << numToStr(p->getS())
+                 << "、高 h=" << numToStr(p->getH());
+        else if (auto* z = dynamic_cast<Trapezoid*>(s))
+            cout << "梯形，上底 a=" << numToStr(z->getA())
+                 << "、下底 b=" << numToStr(z->getB())
+                 << "、腰 c=" << numToStr(z->getC())
+                 << "、腰 d=" << numToStr(z->getD())
+                 << "、高 h=" << numToStr(z->getH());
         cout << "（请分别输入面积与周长，保留 2 位小数）\n";
     }
 

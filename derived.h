@@ -12,6 +12,11 @@ public:
     double area() const override;
     double perimeter() const override;
     std::string serialize() const override;
+
+    // 读取边长：出题时要把题目数据完整打印给学生，否则学生无数据可算
+    double getA() const;
+    double getB() const;
+    double getC() const;
 };
 
 // 长方形：长 l，宽 w
@@ -22,6 +27,9 @@ public:
     double area() const override;
     double perimeter() const override;
     std::string serialize() const override;
+
+    double getL() const;
+    double getW() const;
 };
 
 // 正方形：边长 a
@@ -32,6 +40,8 @@ public:
     double area() const override;
     double perimeter() const override;
     std::string serialize() const override;
+
+    double getA() const;
 };
 
 // 平行四边形：底 b，斜边 s，高 h
@@ -42,6 +52,10 @@ public:
     double area() const override;
     double perimeter() const override;
     std::string serialize() const override;
+
+    double getB() const;
+    double getS() const;
+    double getH() const;
 };
 
 // 梯形：上底 a，下底 b，两腰 c、d，高 h
@@ -52,6 +66,12 @@ public:
     double area() const override;
     double perimeter() const override;
     std::string serialize() const override;
+
+    double getA() const;
+    double getB() const;
+    double getC() const;
+    double getD() const;
+    double getH() const;
 };
 
 #endif // DERIVED_H

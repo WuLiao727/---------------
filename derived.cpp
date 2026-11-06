@@ -30,6 +30,10 @@ string Triangle::serialize() const {
     return oss.str();
 }
 
+double Triangle::getA() const { return a_; }
+double Triangle::getB() const { return b_; }
+double Triangle::getC() const { return c_; }
+
 // 长方形
 Rectangle::Rectangle(double l, double w) : l_(l), w_(w) {
     if (l <= 0 || w <= 0) throw invalid_argument("长宽必须为正");
@@ -43,6 +47,9 @@ string Rectangle::serialize() const {
     oss << "R " << l_ << " " << w_;
     return oss.str();
 }
+
+double Rectangle::getL() const { return l_; }
+double Rectangle::getW() const { return w_; }
 
 // 正方形
 Square::Square(double a) : a_(a) {
@@ -58,6 +65,8 @@ string Square::serialize() const {
     return oss.str();
 }
 
+double Square::getA() const { return a_; }
+
 // 平行四边形
 Parallelogram::Parallelogram(double b, double s, double h)
     : b_(b), s_(s), h_(h) {
@@ -72,6 +81,10 @@ string Parallelogram::serialize() const {
     oss << "P " << b_ << " " << s_ << " " << h_;
     return oss.str();
 }
+
+double Parallelogram::getB() const { return b_; }
+double Parallelogram::getS() const { return s_; }
+double Parallelogram::getH() const { return h_; }
 
 // 梯形
 Trapezoid::Trapezoid(double a, double b, double c, double d, double h)
@@ -93,3 +106,9 @@ string Trapezoid::serialize() const {
     oss << "Z " << a_ << " " << b_ << " " << c_ << " " << d_ << " " << h_;
     return oss.str();
 }
+
+double Trapezoid::getA() const { return a_; }
+double Trapezoid::getB() const { return b_; }
+double Trapezoid::getC() const { return c_; }
+double Trapezoid::getD() const { return d_; }
+double Trapezoid::getH() const { return h_; }
